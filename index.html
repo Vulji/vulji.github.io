@@ -4,8 +4,50 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<!-- Standalone-bundle asset manifest: lets super_inline_html inline every
+     game image/video (they're referenced dynamically in JS, not as HTML
+     attributes). Harmless when unbundled — res() falls back to the raw path. -->
+<meta name="ext-resource-dependency" content="assets/reboot-cover.png" data-resource-id="assets/reboot-cover.png" />
+<meta name="ext-resource-dependency" content="assets/reboot-1.png" data-resource-id="assets/reboot-1.png" />
+<meta name="ext-resource-dependency" content="assets/reboot-2.png" data-resource-id="assets/reboot-2.png" />
+<meta name="ext-resource-dependency" content="assets/takeitordie-cover.png" data-resource-id="assets/takeitordie-cover.png" />
+<meta name="ext-resource-dependency" content="assets/takeitordie-1.png" data-resource-id="assets/takeitordie-1.png" />
+<meta name="ext-resource-dependency" content="assets/takeitordie-2.png" data-resource-id="assets/takeitordie-2.png" />
+<meta name="ext-resource-dependency" content="assets/takeitordie.mp4" data-resource-id="assets/takeitordie.mp4" />
+<meta name="ext-resource-dependency" content="assets/dieofboredom-cover.png" data-resource-id="assets/dieofboredom-cover.png" />
+<meta name="ext-resource-dependency" content="assets/dieofboredom-1.png" data-resource-id="assets/dieofboredom-1.png" />
+<meta name="ext-resource-dependency" content="assets/dieofboredom-2.png" data-resource-id="assets/dieofboredom-2.png" />
+<meta name="ext-resource-dependency" content="assets/dieofboredom.mp4" data-resource-id="assets/dieofboredom.mp4" />
+<meta name="ext-resource-dependency" content="assets/dsaventure-cover.png" data-resource-id="assets/dsaventure-cover.png" />
+<meta name="ext-resource-dependency" content="assets/dsaventure.mp4" data-resource-id="assets/dsaventure.mp4" />
+<meta name="ext-resource-dependency" content="assets/incubattle-cover.png" data-resource-id="assets/incubattle-cover.png" />
+<meta name="ext-resource-dependency" content="assets/incubattle-1.png" data-resource-id="assets/incubattle-1.png" />
+<meta name="ext-resource-dependency" content="assets/incubattle-2.png" data-resource-id="assets/incubattle-2.png" />
+<meta name="ext-resource-dependency" content="assets/incubattle.mp4" data-resource-id="assets/incubattle.mp4" />
+<meta name="ext-resource-dependency" content="assets/taijin-cover.png" data-resource-id="assets/taijin-cover.png" />
+<meta name="ext-resource-dependency" content="assets/taijin-1.png" data-resource-id="assets/taijin-1.png" />
+<meta name="ext-resource-dependency" content="assets/taijin-2.png" data-resource-id="assets/taijin-2.png" />
+<meta name="ext-resource-dependency" content="assets/taijin.mp4" data-resource-id="assets/taijin.mp4" />
+<meta name="ext-resource-dependency" content="assets/pelerins-cover.png" data-resource-id="assets/pelerins-cover.png" />
+<meta name="ext-resource-dependency" content="assets/moai-cover.png" data-resource-id="assets/moai-cover.png" />
+<meta name="ext-resource-dependency" content="assets/moai-1.png" data-resource-id="assets/moai-1.png" />
+<meta name="ext-resource-dependency" content="assets/moai-2.png" data-resource-id="assets/moai-2.png" />
+<meta name="ext-resource-dependency" content="assets/moai.mp4" data-resource-id="assets/moai.mp4" />
+<meta name="ext-resource-dependency" content="assets/ar-cover.png" data-resource-id="assets/ar-cover.png" />
+<meta name="ext-resource-dependency" content="assets/ar.mp4" data-resource-id="assets/ar.mp4" />
+<meta name="ext-resource-dependency" content="assets/courseprojects-cover.png" data-resource-id="assets/courseprojects-cover.png" />
 </head>
 <body>
+<template id="__bundler_thumbnail" data-bg-color="#0d0d20">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0d0d20"/>
+    <g fill="none" stroke="#00ff85" stroke-width="14" stroke-linejoin="round">
+      <path d="M600 250 L740 330 L740 490 L600 570 L460 490 L460 330 Z"/>
+      <path d="M600 250 L600 410 M600 410 L740 490 M600 410 L460 490"/>
+    </g>
+    <text x="600" y="700" fill="#ffffff" font-family="Space Grotesk, sans-serif" font-size="80" font-weight="700" text-anchor="middle">Valentin Luzolo</text>
+  </svg>
+</template>
 <x-dc>
 <helmet>
 <meta name="description" content="Valentin Luzolo — Unity developer specialising in gameplay, AI and game feel. Portfolio of games, jam projects and shipped mobile titles.">
@@ -240,7 +282,7 @@
     <div style="display:inline-flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:26px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span>LET'S BUILD SOMETHING<span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span></div>
     <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(36px,6.5vw,82px);line-height:1;letter-spacing:-.02em;margin:0 0 40px">Get in touch.</h2>
     <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
-      <a href="/cdn-cgi/l/email-protection#05736469606b716c6b2b69707f6a696a4575776a716a6b68646c692b666a68" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:15px 28px;border-radius:999px"><span class="__cf_email__" data-cfemail="4a3c2b262f243e232464263f302526250a3a38253e2524272b232664292527">[email&#160;protected]</span></a>
+      <a href="mailto:valentin.luzolo@protonmail.com" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:15px 28px;border-radius:999px">valentin.luzolo@protonmail.com</a>
       <a href="tel:+33623589356" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#fff;border:1px solid rgba(255,255,255,.18);padding:15px 28px;border-radius:999px">+33 6 23 58 93 56</a>
     </div>
     <div style="margin-top:70px;padding-top:26px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;color:#6b6b8f">
@@ -350,7 +392,7 @@
     <text x="600" y="742" fill="#ffffff" font-family="'Space Grotesk',sans-serif" font-size="72" font-weight="700" text-anchor="middle" letter-spacing="-2">Valentin Luzolo</text>
   </svg>
 </template></x-dc>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script>
 // ════════════════════════════════════════════════════════════════
 //  GAME DATA  —  add / remove / reorder entries freely.
 //  Each entry:
@@ -807,6 +849,13 @@ class Component extends DCLogic {
   // every image + video as a data URL so it works fully offline and videos
   // play. Because it reads GAMES at click time, it always reflects the
   // current set of projects — add or remove entries and the export follows.
+  // Resolve an asset path to its bundled blob URL when this file has been
+  // inlined for standalone hosting (window.__resources), else the raw path.
+  res(p){
+    if (!p) return p;
+    const r = window.__resources;
+    return (r && r[p]) || p;
+  }
   esc(s){
     return String(s == null ? "" : s)
       .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
@@ -840,8 +889,8 @@ class Component extends DCLogic {
     for (const url of assets){
       done++;
       this.setState({ exportStatus: "Embedding media " + done + " / " + total + "…" });
-      try { map[url] = await this.fetchAsDataURL(url); }
-      catch(err){ console.warn("export: could not inline", url, err); map[url] = url; }
+      try { map[url] = await this.fetchAsDataURL(this.res(url)); }
+      catch(err){ console.warn("export: could not inline", url, err); map[url] = this.res(url); }
     }
 
     this.setState({ exportStatus: "Building file…" });
@@ -877,8 +926,8 @@ class Component extends DCLogic {
     for (const url of assets){
       done++;
       this.setState({ exportStatus: "Embedding media " + done + " / " + total + "…" });
-      try { map[url] = await this.fetchAsDataURL(url); }
-      catch(err){ console.warn("pdf: could not inline", url, err); map[url] = url; }
+      try { map[url] = await this.fetchAsDataURL(this.res(url)); }
+      catch(err){ console.warn("pdf: could not inline", url, err); map[url] = this.res(url); }
     }
 
     const html = this.buildExportHTML(map, true);
@@ -1122,6 +1171,7 @@ ${forPrint ? `<style>
     // cards
     const games = list.map((g, i) => ({
       ...g,
+      cover: this.res(g.cover),
       num: String(i + 1).padStart(2, "0"),
       coverAlt: g.title + " — " + g.genre + " cover art",
       aria: "Open " + g.title + " — " + g.genre,
@@ -1166,7 +1216,7 @@ ${forPrint ? `<style>
       choosePDF: () => { this.setState({ exportMenuOpen: false }); this.exportPDF(); },
       chooseHTML: () => { this.setState({ exportMenuOpen: false }); this.downloadPortfolio(); },
       // detail modal
-      selected,
+      selected: selected ? { ...selected, cover: this.res(selected.cover), video: this.res(selected.video) } : null,
       hasSelected: !!selected,
       selectedIsVideo: !!(selected && selected.video && !selected.youtube),
       selectedIsImage: !!(selected && !selected.video && !selected.youtube),
@@ -1183,8 +1233,8 @@ ${forPrint ? `<style>
       detailPos: selIdx >= 0 ? String(selIdx + 1).padStart(2, "0") + " / " + String(list.length).padStart(2, "0") : "",
       selRole: selected ? selected.role : [],
       selGallery: selected ? selected.gallery.map(src => ({
-        src, alt: selected.title + " screenshot",
-        onClick: () => this.setState({ lightbox: src })
+        src: this.res(src), alt: selected.title + " screenshot",
+        onClick: () => this.setState({ lightbox: this.res(src) })
       })) : [],
       selLinks: selected ? selected.links : [],
       selHasGallery: !!(selected && selected.gallery.length),
