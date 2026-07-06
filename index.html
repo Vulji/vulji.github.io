@@ -20,6 +20,12 @@
 <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
 <style>
   *{box-sizing:border-box}
+  /* Graceful no-JS / raw-save fallback: hide un-hydrated template elements
+     (which still hold literal {{ }} src holes) so a copy of this page opened
+     without its runtime never flashes a broken full-screen image. Once the
+     runtime hydrates, these custom elements are removed, so this never
+     affects the live page. */
+  sc-if,sc-for,dc-import,x-import,x-dc:not(:defined){display:none !important}
   html{scroll-behavior:smooth;background:#0d0d20}
   body{margin:0;background:#0d0d20;color:#fff;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   ::selection{background:#00ff85;color:#0d0d20}
@@ -113,7 +119,7 @@
     <div style="display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:20px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span><a href="Unity%20Boot%20Cube.html" title="Play the Unity boot animation" style="color:#00ff85;border-bottom:1px solid rgba(0,255,133,.4)">UNITY</a> · C# · GAMEPLAY · XR</div>
     <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(46px,9vw,124px);line-height:.95;letter-spacing:-.02em;margin:0">Valentin<br>Luzolo</h1>
     <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;margin-top:34px">
-      <p style="max-width:470px;margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:#c5c5de">Unity developer crafting gameplay, AI and game feel — from 48-hour jams to shipped mobile titles. I build the systems that make games <em style="color:#00ff85;font-style:normal">play</em> well.</p>
+      <p style="max-width:470px;margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:#c5c5de">Unity developer crafting gameplay, AI and game feel — from 48-hour jams to shipped mobile titles. I build the systems that make games <em style="color:#00ff85;font-style:normal"><a href="https://vulji.itch.io/" target="_blank" rel="noopener noreferrer" title="Play my games on itch.io" style="color:#00ff85;border-bottom:1px solid rgba(0,255,133,.45)">play</a></em> well.</p>
       <div aria-hidden="true" style="font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:.42em;font-size:clamp(13px,1.4vw,17px);color:#6b6b8f;padding-bottom:6px">P O R T F O L I O</div>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:40px">
@@ -199,7 +205,7 @@
   <div style="max-width:1280px;margin:0 auto;padding:clamp(70px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(40px,6vw,90px)">
     <div class="reveal">
       <div style="display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:18px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span>ABOUT ME</div>
-      <h2 id="about-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.02em;margin:0 0 24px">I make games feel good to play.</h2>
+      <h2 id="about-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.02em;margin:0 0 24px">I make games feel good to <a href="https://vulji.itch.io/" target="_blank" rel="noopener noreferrer" title="Play my games on itch.io" style="color:#00ff85;border-bottom:2px solid rgba(0,255,133,.4)">play</a>.</h2>
       <p style="color:#c5c5de;font-size:16px;line-height:1.7;margin:0 0 16px">I'm a <a href="Unity%20Boot%20Cube.html" title="Play the Unity boot animation" style="color:#00ff85;border-bottom:1px solid rgba(0,255,133,.4)">Unity</a> developer who lives in the gameplay layer — combat collisions, enemy AI, juice and game feel. My work spans fast 48-hour game jams, structured course projects, an internship shipping a commercial point &amp; click, and personal mobile and AR titles.</p>
       <p style="color:#9a9abc;font-size:15px;line-height:1.7;margin:0">Across every project I tend to wear several hats: programmer first, but often game designer, animator, QA, and even producer. I learn fast and can adapt.</p>
       <div style="margin-top:38px">
@@ -234,7 +240,7 @@
     <div style="display:inline-flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:26px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span>LET'S BUILD SOMETHING<span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span></div>
     <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(36px,6.5vw,82px);line-height:1;letter-spacing:-.02em;margin:0 0 40px">Get in touch.</h2>
     <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
-      <a href="/cdn-cgi/l/email-protection#c4b2a5a8a1aab0adaaeaa8b1beaba8ab84b4b6abb0abaaa9a5ada8eaa7aba9" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:15px 28px;border-radius:999px"><span class="__cf_email__" data-cfemail="93e5f2fff6fde7fafdbdffe6e9fcfffcd3e3e1fce7fcfdfef2faffbdf0fcfe">[email&#160;protected]</span></a>
+      <a href="/cdn-cgi/l/email-protection#05736469606b716c6b2b69707f6a696a4575776a716a6b68646c692b666a68" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:15px 28px;border-radius:999px"><span class="__cf_email__" data-cfemail="4a3c2b262f243e232464263f302526250a3a38253e2524272b232664292527">[email&#160;protected]</span></a>
       <a href="tel:+33623589356" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#fff;border:1px solid rgba(255,255,255,.18);padding:15px 28px;border-radius:999px">+33 6 23 58 93 56</a>
     </div>
     <div style="margin-top:70px;padding-top:26px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;color:#6b6b8f">
@@ -265,12 +271,17 @@
         <sc-if value="{{ selectedIsImage }}" hint-placeholder-val="{{ true }}">
           <img src="{{ selected.cover }}" alt="{{ selectedCoverAlt }}" style="width:100%;height:100%;object-fit:cover">
         </sc-if>
-        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(19,19,44,1),rgba(19,19,44,0) 50%)"></div>
-        <span style="position:absolute;left:clamp(20px,4vw,40px);top:22px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:#cfcfe6;background:rgba(13,13,32,.6);backdrop-filter:blur(6px);padding:6px 12px;border-radius:999px">{{ detailPos }}</span>
-        <div style="position:absolute;left:clamp(20px,4vw,40px);bottom:24px;right:80px">
+        <sc-if value="{{ selectedIsYoutube }}" hint-placeholder-val="{{ false }}">
+          <iframe src="{{ selYoutube }}" title="{{ selected.title }} — video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0;display:block"></iframe>
+        </sc-if>
+        <sc-if value="{{ selShowMediaOverlay }}" hint-placeholder-val="{{ true }}">
+        <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(19,19,44,1),rgba(19,19,44,0) 50%)"></div>
+        <span style="position:absolute;left:clamp(20px,4vw,40px);top:22px;pointer-events:none;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:#cfcfe6;background:rgba(13,13,32,.6);backdrop-filter:blur(6px);padding:6px 12px;border-radius:999px">{{ detailPos }}</span>
+        <div style="position:absolute;left:clamp(20px,4vw,40px);bottom:24px;right:80px;pointer-events:none">
           <span style="display:inline-block;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:#0d0d20;background:#00ff85;padding:5px 11px;border-radius:6px;font-weight:700;margin-bottom:14px">{{ selected.genre }}</span>
           <h2 id="dlg-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,5vw,52px);line-height:1;letter-spacing:-.02em;margin:0">{{ selected.title }}</h2>
         </div>
+        </sc-if>
       </div>
 
       <div style="padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(28px,4vw,52px)">
@@ -328,7 +339,17 @@
     <button onClick="{{ closeLightbox }}" aria-label="Close screenshot" style="position:fixed;top:22px;right:22px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(13,13,32,.6);color:#fff;font-size:19px;cursor:pointer">✕</button>
   </div>
 </sc-if>
-</x-dc>
+
+<template id="__bundler_thumbnail" data-bg-color="#0d0d20">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0d0d20"/>
+    <g fill="none" stroke="#00ff85" stroke-width="14" stroke-linejoin="round">
+      <path d="M600 250 L790 360 L790 560 L600 670 L410 560 L410 360 Z"/>
+      <path d="M600 250 L600 460 M600 460 L790 560 M600 460 L410 560"/>
+    </g>
+    <text x="600" y="742" fill="#ffffff" font-family="'Space Grotesk',sans-serif" font-size="72" font-weight="700" text-anchor="middle" letter-spacing="-2">Valentin Luzolo</text>
+  </svg>
+</template></x-dc>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script>
 // ════════════════════════════════════════════════════════════════
 //  GAME DATA  —  add / remove / reorder entries freely.
@@ -452,8 +473,8 @@ const GAMES = [
     role:["Generalist"],
     blurb:"A dozen prototypes across genres from my Unity training.",
     about:"A dozen prototypes and games of a variety of genres made during my Unity training — whether mandatory coursework or personal projects built for fun in my free time. Making that many games taught me a lot about game development.",
-    cover:"assets/courseprojects-cover.png", video:"",
-    gallery:[], links:[{label:"Video ↗",href:"#"}]
+    cover:"assets/courseprojects-cover.png", video:"", youtube:"https://www.youtube-nocookie.com/embed/FQIvL_KnlCw?rel=0",
+    gallery:[], links:[{label:"Watch on YouTube ↗",href:"https://www.youtube.com/watch?v=FQIvL_KnlCw"}]
   }
 ];
 
@@ -885,7 +906,9 @@ class Component extends DCLogic {
 
     const games = GAMES.map((g, i) => {
       const n = String(i + 1).padStart(2, "0");
-      const media = (g.video && !forPrint)
+      const media = (g.youtube && !forPrint)
+        ? `<iframe src="${e(g.youtube)}" title="${e(g.title)} — video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border:0"></iframe>`
+        : (g.video && !forPrint)
         ? `<video src="${M(g.video)}"${g.cover ? ` poster="${M(g.cover)}"` : ""} controls playsinline preload="metadata"></video>`
         : `<img src="${M(g.cover)}" alt="${e(g.title)} — key art">`;
       const roles = (g.role || []).map(r => `<li>${e(r)}</li>`).join("");
@@ -970,7 +993,7 @@ class Component extends DCLogic {
   .games{padding:20px 0 40px;display:flex;flex-direction:column;gap:clamp(40px,6vw,80px)}
   .game{display:grid;grid-template-columns:1fr;gap:0;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;background:#15152e}
   .game .media{position:relative;aspect-ratio:16/9;background:#0d0d20}
-  .game .media img,.game .media video{width:100%;height:100%;object-fit:cover;display:block}
+  .game .media img,.game .media video,.game .media iframe{width:100%;height:100%;object-fit:cover;display:block}
   .game .media.portrait{aspect-ratio:auto;display:flex;align-items:center;justify-content:center;padding:24px 0;background:#0a0a18}
   .game .media.portrait video{width:auto;height:min(72vh,540px);aspect-ratio:9/16;object-fit:cover;border-radius:24px;border:1px solid rgba(255,255,255,.13);box-shadow:0 20px 60px rgba(0,0,0,.5)}
   .game .media .tag{position:absolute;top:15px;left:15px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--ink);background:var(--mint);padding:5px 11px;border-radius:6px}
@@ -1030,7 +1053,7 @@ ${forPrint ? `<style>
 
   <div class="wrap lead">
     <div class="eyebrow mono"><i></i> ABOUT ME</div>
-    <h2>I make games feel good to play.</h2>
+    <h2>I make games feel good to <a href="https://vulji.itch.io/" target="_blank" rel="noopener noreferrer" style="color:var(--mint);border-bottom:2px solid rgba(0,255,133,.4)">play</a>.</h2>
   </div>
   <div class="wrap about-grid">
     <div>
@@ -1145,8 +1168,11 @@ ${forPrint ? `<style>
       // detail modal
       selected,
       hasSelected: !!selected,
-      selectedIsVideo: !!(selected && selected.video),
-      selectedIsImage: !!(selected && !selected.video),
+      selectedIsVideo: !!(selected && selected.video && !selected.youtube),
+      selectedIsImage: !!(selected && !selected.video && !selected.youtube),
+      selectedIsYoutube: !!(selected && selected.youtube),
+      selShowMediaOverlay: !(selected && selected.youtube),
+      selYoutube: selected ? (selected.youtube || "") : "",
       selMediaWrapStyle: (selected && selected.portrait)
         ? "position:relative;background:#0a0a18;display:flex;align-items:center;justify-content:center;padding:26px 0 76px;overflow:hidden"
         : "position:relative;aspect-ratio:16/9;background:#0d0d20;overflow:hidden",
