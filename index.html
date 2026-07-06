@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="description" content="Valentin Luzolo — Unity developer specialising in gameplay, AI and game feel. Portfolio of games, jam projects and shipped mobile titles.">
+<meta name="theme-color" content="#0d0d20">
+<meta name="author" content="Valentin Luzolo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Valentin Luzolo — Unity Developer">
+<meta property="og:description" content="Gameplay, AI & game feel. From 48-hour jams to shipped mobile titles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:#0d0d20}
+  body{margin:0;background:#0d0d20;color:#fff;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:#00ff85;color:#0d0d20}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  ::-webkit-scrollbar{width:11px;height:11px}
+  ::-webkit-scrollbar-track{background:#0d0d20}
+  ::-webkit-scrollbar-thumb{background:#2a2a52;border-radius:6px;border:2px solid #0d0d20}
+  ::-webkit-scrollbar-thumb:hover{background:#3a3a72}
+  a:focus-visible,button:focus-visible{outline:2px solid #00ff85;outline-offset:3px;border-radius:6px}
+  .skip{position:fixed;top:-80px;left:14px;z-index:300;background:#00ff85;color:#0d0d20;padding:11px 18px;border-radius:9px;font-weight:700;font-size:14px;transition:top .2s}
+  .skip:focus{top:14px}
+  .gd-card:hover .gd-cover{transform:scale(1.07)}
+  .gd-card:hover{transform:translateY(-5px);border-color:rgba(0,255,133,.5)}
+  .gd-card:hover .gd-arrow{color:#00ff85;transform:translate(3px,-3px)}
+  .hero-emblem{transition:transform .2s}
+  .hero-emblem:hover{transform:translateY(-2px)}
+  .hero-emblem:hover canvas{filter:drop-shadow(0 0 22px rgba(0,255,133,.75))!important}
+  @keyframes floatGrid{from{background-position:0 0}to{background-position:0 -56px}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes zoomIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+  @keyframes revealIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:1}
+  @supports (animation-timeline:view()){
+    @media (prefers-reduced-motion:no-preference){
+      .reveal{animation:revealIn linear both;animation-timeline:view();animation-range:entry 4% entry 34%}
+    }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
+</style>
+</helmet>
+
+<a class="skip" href="#work">Skip to work</a>
+
+<div id="fx-spot" aria-hidden="true" style="position:fixed;top:0;left:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,133,.09),transparent 60%);pointer-events:none;z-index:40;mix-blend-mode:screen;will-change:transform"></div>
+
+<nav aria-label="Primary" style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,64px);backdrop-filter:blur(14px);background:rgba(13,13,32,.74);border-bottom:1px solid rgba(255,255,255,.07)">
+  <a href="#top" aria-label="Valentin Luzolo — home" style="display:flex;align-items:center;gap:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px">
+    <span aria-hidden="true" style="width:9px;height:9px;border-radius:2px;background:#00ff85;box-shadow:0 0 12px #00ff85"></span>
+    Valentin Luzolo
+  </a>
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;align-items:center;gap:clamp(14px,2.5vw,32px);font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.04em">
+      <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="3">
+        <a href="{{ l.href }}" aria-current="{{ l.current }}" style="{{ l.style }}">{{ l.label }}</a>
+      </sc-for>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:7px;color:#0d0d20;background:#00ff85;padding:9px 17px;border-radius:999px;font-weight:700">contact</a>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ toggleMenu }}" aria-label="Open menu" aria-expanded="{{ menuExpanded }}" style="display:flex;flex-direction:column;gap:5px;width:42px;height:42px;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;cursor:pointer">
+      <span aria-hidden="true" style="width:18px;height:2px;background:#fff;border-radius:2px"></span>
+      <span aria-hidden="true" style="width:18px;height:2px;background:#fff;border-radius:2px"></span>
+    </button>
+  </sc-if>
+</nav>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-label="Menu" style="position:fixed;inset:0;z-index:70;background:rgba(13,13,32,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;padding:24px;animation:fadeUp .25s both">
+    <div style="display:flex;justify-content:flex-end">
+      <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:20px;cursor:pointer">✕</button>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px;font-family:'Space Grotesk',sans-serif">
+      <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="3">
+        <a href="{{ l.href }}" onClick="{{ closeMenu }}" style="font-size:40px;font-weight:600;padding:10px 0;color:#fff">{{ l.label }}</a>
+      </sc-for>
+      <a href="#contact" onClick="{{ closeMenu }}" style="font-size:40px;font-weight:600;padding:10px 0;color:#00ff85">Contact</a>
+    </div>
+  </div>
+</sc-if>
+
+<main>
+<header id="top" style="position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px clamp(20px,5vw,64px) 90px;overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;animation:floatGrid 7s linear infinite;mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 30%,transparent 75%)"></div>
+  <div aria-hidden="true" style="position:absolute;top:-12%;right:-8%;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,133,.16),transparent 62%);filter:blur(20px)"></div>
+  <div aria-hidden="true" style="position:absolute;bottom:-18%;left:-12%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(34,33,82,.85),transparent 65%)"></div>
+  <canvas id="fx-hero" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto;width:100%">
+    <a href="Unity%20Boot%20Cube.html" title="Play the Unity boot sequence" class="hero-emblem" style="display:inline-flex;align-items:center;gap:15px;margin-bottom:26px;text-decoration:none">
+      <canvas id="hero3d" width="128" height="128" aria-hidden="true" style="width:78px;height:78px;display:block;filter:drop-shadow(0 0 14px rgba(0,255,133,.45))"></canvas>
+      <span style="display:flex;flex-direction:column;gap:4px">
+        <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;color:#00ff85">
+          <span aria-hidden="true" style="font-size:9px">▶</span> BOOT SEQUENCE
+        </span>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#eef">Launch the 3D cube</span>
+      </span>
+    </a>
+    <div style="display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:20px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span><a href="Unity%20Boot%20Cube.html" title="Play the Unity boot animation" style="color:#00ff85;border-bottom:1px solid rgba(0,255,133,.4)">UNITY</a> · C# · GAMEPLAY · XR</div>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(46px,9vw,124px);line-height:.95;letter-spacing:-.02em;margin:0">Valentin<br>Luzolo</h1>
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;margin-top:34px">
+      <p style="max-width:470px;margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:#c5c5de">Unity developer crafting gameplay, AI and game feel — from 48-hour jams to shipped mobile titles. I build the systems that make games <em style="color:#00ff85;font-style:normal">play</em> well.</p>
+      <div aria-hidden="true" style="font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:.42em;font-size:clamp(13px,1.4vw,17px);color:#6b6b8f;padding-bottom:6px">P O R T F O L I O</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:40px">
+      <a href="#work" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:14px 26px;border-radius:999px">View the work <span aria-hidden="true">↓</span></a>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#fff;border:1px solid rgba(255,255,255,.2);padding:14px 26px;border-radius:999px">Get in touch</a>
+      <div data-export="1" style="position:relative;display:inline-flex">
+        <button onClick="{{ toggleExportMenu }}" aria-haspopup="menu" aria-expanded="{{ exportMenuExpanded }}" aria-label="Download portfolio" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#00ff85;background:rgba(0,255,133,.08);border:1px solid rgba(0,255,133,.4);padding:14px 26px;border-radius:999px;cursor:pointer" style-hover="background:rgba(0,255,133,.16);border-color:#00ff85">
+          <span aria-hidden="true">↓</span> Download portfolio <span aria-hidden="true" style="font-size:12px;opacity:.7">▾</span>
+        </button>
+        <sc-if value="{{ exportMenuOpen }}" hint-placeholder-val="{{ false }}">
+          <div role="menu" style="position:absolute;top:calc(100% + 10px);left:0;z-index:30;min-width:250px;background:#15152e;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:7px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:4px;animation:fadeUp .16s both">
+            <button role="menuitem" onClick="{{ choosePDF }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:11px 14px;border-radius:9px;background:transparent;border:1px solid transparent;color:#fff;cursor:pointer" style-hover="background:rgba(0,255,133,.1);border-color:rgba(0,255,133,.3)">
+              <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px">PDF</span>
+              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.02em;color:#9a9abc">print-ready · images only</span>
+            </button>
+            <button role="menuitem" onClick="{{ chooseHTML }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:11px 14px;border-radius:9px;background:transparent;border:1px solid transparent;color:#fff;cursor:pointer" style-hover="background:rgba(0,255,133,.1);border-color:rgba(0,255,133,.3)">
+              <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px">HTML <span style="color:#00ff85;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:.02em">▶ videos play</span></span>
+              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.02em;color:#9a9abc">self-contained · works offline</span>
+            </button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    <p aria-live="polite" style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.03em;color:#8a8ab0;margin:14px 0 0;min-height:16px">{{ exportStatus }}</p>
+    <dl style="display:flex;flex-wrap:wrap;gap:0;margin:54px 0 0;border-top:1px solid rgba(255,255,255,.1);padding-top:26px">
+      <sc-for list="{{ stats }}" as="stat" hint-placeholder-count="3">
+        <div style="padding-right:clamp(28px,5vw,64px);margin-right:clamp(28px,5vw,64px);border-right:1px solid rgba(255,255,255,.1)">
+          <dd style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1;margin:0">{{ stat.value }}</dd>
+          <dt style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;color:#8a8ab0;margin-top:8px">{{ stat.label }}</dt>
+        </div>
+      </sc-for>
+    </dl>
+  </div>
+</header>
+
+<section id="work" aria-labelledby="work-title" style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(70px,9vw,120px) clamp(20px,5vw,64px);scroll-margin-top:72px">
+  <div class="reveal" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:14px">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:16px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span>SELECTED WORK</div>
+      <h2 id="work-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(34px,5.5vw,64px);line-height:1;letter-spacing:-.02em;margin:0">Games &amp; Projects</h2>
+    </div>
+    <p style="max-width:340px;margin:0;color:#9a9abc;font-size:15px;line-height:1.6">Click any project to open its breakdown — role, team, screenshots and links. Filter by how it was made.</p>
+  </div>
+
+  <div role="group" aria-label="Filter projects" style="display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 18px">
+    <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+      <button onClick="{{ f.onClick }}" aria-pressed="{{ f.pressed }}" style="{{ f.style }}">{{ f.label }} <span style="{{ f.countStyle }}">{{ f.count }}</span></button>
+    </sc-for>
+  </div>
+  <p aria-live="polite" style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.03em;color:#6b6b8f;margin:0 0 36px">{{ resultLabel }}</p>
+
+  <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px">
+    <sc-for list="{{ games }}" as="g" hint-placeholder-count="6">
+      <li class="reveal" style="margin:0">
+        <article class="gd-card" tabindex="0" role="button" aria-label="{{ g.aria }}" onClick="{{ g.onClick }}" onKeyDown="{{ g.onKey }}" style="position:relative;cursor:pointer;border:1px solid rgba(255,255,255,.09);border-radius:16px;overflow:hidden;background:#15152e;transition:transform .25s,border-color .25s;height:100%">
+          <div style="position:relative;aspect-ratio:16/10;overflow:hidden;background:#0d0d20">
+            <img class="gd-cover" src="{{ g.cover }}" alt="{{ g.coverAlt }}" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease" loading="lazy">
+            <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,32,.85),transparent 55%)"></div>
+            <span style="position:absolute;top:13px;left:13px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#0d0d20;background:#00ff85;padding:5px 10px;border-radius:6px;font-weight:700">{{ g.genre }}</span>
+            <span aria-hidden="true" style="position:absolute;top:13px;right:13px;font-family:'Space Mono',monospace;font-size:12px;color:#cfcfe6;text-shadow:0 1px 4px #000">{{ g.num }}</span>
+          </div>
+          <div style="padding:20px 22px 24px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;margin:0;letter-spacing:-.01em">{{ g.title }}</h3>
+              <span class="gd-arrow" aria-hidden="true" style="font-size:18px;color:#6b6b8f;transition:all .2s;line-height:1.2">↗</span>
+            </div>
+            <p style="margin:10px 0 0;color:#9a9abc;font-size:14px;line-height:1.55">{{ g.blurb }}</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:16px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.04em;color:#6b6b8f">
+              <span>{{ g.year }}</span><span aria-hidden="true" style="opacity:.4">/</span><span>{{ g.status }}</span>
+            </div>
+          </div>
+        </article>
+      </li>
+    </sc-for>
+  </ul>
+
+  <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+    <p style="text-align:center;color:#6b6b8f;padding:60px 0;font-family:'Space Mono',monospace">No projects in this category yet.</p>
+  </sc-if>
+</section>
+
+<section id="about" aria-labelledby="about-title" style="position:relative;border-top:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,#0d0d20,#101028);scroll-margin-top:72px">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(70px,9vw,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(40px,6vw,90px)">
+    <div class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:18px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span>ABOUT ME</div>
+      <h2 id="about-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.02em;margin:0 0 24px">I make games feel good to play.</h2>
+      <p style="color:#c5c5de;font-size:16px;line-height:1.7;margin:0 0 16px">I'm a <a href="Unity%20Boot%20Cube.html" title="Play the Unity boot animation" style="color:#00ff85;border-bottom:1px solid rgba(0,255,133,.4)">Unity</a> developer who lives in the gameplay layer — combat collisions, enemy AI, juice and game feel. My work spans fast 48-hour game jams, structured course projects, an internship shipping a commercial point &amp; click, and personal mobile and AR titles.</p>
+      <p style="color:#9a9abc;font-size:15px;line-height:1.7;margin:0">Across every project I tend to wear several hats: programmer first, but often game designer, animator, QA, and even producer. I learn fast and can adapt.</p>
+      <div style="margin-top:38px">
+        <h3 style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;color:#6b6b8f;margin:0 0 16px;font-weight:400">SKILLS &amp; TOOLS</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:9px">
+          <sc-for list="{{ skills }}" as="s" hint-placeholder-count="12">
+            <li style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.02em;color:#cfcfe6;border:1px solid rgba(255,255,255,.13);padding:7px 13px;border-radius:7px;background:rgba(255,255,255,.02)">{{ s }}</li>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+    <div class="reveal">
+      <h3 style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;color:#6b6b8f;margin:0 0 24px;font-weight:400">EXPERIENCE</h3>
+      <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+        <sc-for list="{{ experience }}" as="e" hint-placeholder-count="4">
+          <li style="position:relative;padding:0 0 30px 28px;border-left:1px solid rgba(255,255,255,.12)">
+            <span aria-hidden="true" style="position:absolute;left:-5px;top:4px;width:9px;height:9px;border-radius:50%;background:#00ff85;box-shadow:0 0 10px #00ff85"></span>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#00ff85;margin-bottom:7px">{{ e.period }}</div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;margin:0 0 7px">{{ e.title }}</h4>
+            <p style="margin:0;color:#9a9abc;font-size:14px;line-height:1.6">{{ e.detail }}</p>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contact" style="position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.07);background:#0d0d20;scroll-margin-top:72px">
+  <div aria-hidden="true" style="position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,133,.12),transparent 60%)"></div>
+  <div style="position:relative;max-width:1000px;margin:0 auto;padding:clamp(80px,11vw,150px) clamp(20px,5vw,64px);text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.12em;color:#00ff85;margin-bottom:26px"><span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span>LET'S BUILD SOMETHING<span aria-hidden="true" style="width:34px;height:1px;background:#00ff85"></span></div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(36px,6.5vw,82px);line-height:1;letter-spacing:-.02em;margin:0 0 40px">Get in touch.</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+      <a href="/cdn-cgi/l/email-protection#c4b2a5a8a1aab0adaaeaa8b1beaba8ab84b4b6abb0abaaa9a5ada8eaa7aba9" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:15px 28px;border-radius:999px"><span class="__cf_email__" data-cfemail="93e5f2fff6fde7fafdbdffe6e9fcfffcd3e3e1fce7fcfdfef2faffbdf0fcfe">[email&#160;protected]</span></a>
+      <a href="tel:+33623589356" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#fff;border:1px solid rgba(255,255,255,.18);padding:15px 28px;border-radius:999px">+33 6 23 58 93 56</a>
+    </div>
+    <div style="margin-top:70px;padding-top:26px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;color:#6b6b8f">
+      <span>© 2026 Valentin Luzolo</span>
+      <span style="display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:8px;height:8px;border-radius:2px;background:#00ff85"></span>Unity Developer · Portfolio</span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ showTop }}" hint-placeholder-val="{{ false }}">
+  <button onClick="{{ scrollTop }}" aria-label="Back to top" style="position:fixed;bottom:24px;right:24px;z-index:55;width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,255,133,.4);background:rgba(13,13,32,.85);backdrop-filter:blur(8px);color:#00ff85;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;animation:fadeUp .3s both" style-hover="background:#00ff85;color:#0d0d20">↑</button>
+</sc-if>
+
+<sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="dlg-title" style="position:fixed;inset:0;z-index:100;display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;animation:fadeUp .25s both">
+    <div onClick="{{ closeDetail }}" aria-hidden="true" style="position:fixed;inset:0;background:rgba(6,6,16,.82);backdrop-filter:blur(6px)"></div>
+    <div style="position:relative;width:min(980px,100%);margin:clamp(16px,5vh,70px) clamp(12px,3vw,40px) 60px;background:#13132c;border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);animation:zoomIn .28s both">
+      <div style="position:absolute;top:16px;right:16px;z-index:6;display:flex;gap:9px">
+        <button onClick="{{ prevGame }}" aria-label="Previous project" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(13,13,32,.6);backdrop-filter:blur(8px);color:#fff;font-size:16px;cursor:pointer" style-hover="border-color:#00ff85;color:#00ff85">←</button>
+        <button onClick="{{ nextGame }}" aria-label="Next project" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(13,13,32,.6);backdrop-filter:blur(8px);color:#fff;font-size:16px;cursor:pointer" style-hover="border-color:#00ff85;color:#00ff85">→</button>
+        <button onClick="{{ closeDetail }}" aria-label="Close" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(13,13,32,.6);backdrop-filter:blur(8px);color:#fff;font-size:18px;cursor:pointer" style-hover="border-color:#00ff85;color:#00ff85">✕</button>
+      </div>
+
+      <div style="{{ selMediaWrapStyle }}">
+        <sc-if value="{{ selectedIsVideo }}" hint-placeholder-val="{{ false }}">
+          <video src="{{ selected.video }}" poster="{{ selected.cover }}" controls autoplay muted loop playsinline style="{{ selVideoStyle }}"></video>
+        </sc-if>
+        <sc-if value="{{ selectedIsImage }}" hint-placeholder-val="{{ true }}">
+          <img src="{{ selected.cover }}" alt="{{ selectedCoverAlt }}" style="width:100%;height:100%;object-fit:cover">
+        </sc-if>
+        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(19,19,44,1),rgba(19,19,44,0) 50%)"></div>
+        <span style="position:absolute;left:clamp(20px,4vw,40px);top:22px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:#cfcfe6;background:rgba(13,13,32,.6);backdrop-filter:blur(6px);padding:6px 12px;border-radius:999px">{{ detailPos }}</span>
+        <div style="position:absolute;left:clamp(20px,4vw,40px);bottom:24px;right:80px">
+          <span style="display:inline-block;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:#0d0d20;background:#00ff85;padding:5px 11px;border-radius:6px;font-weight:700;margin-bottom:14px">{{ selected.genre }}</span>
+          <h2 id="dlg-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,5vw,52px);line-height:1;letter-spacing:-.02em;margin:0">{{ selected.title }}</h2>
+        </div>
+      </div>
+
+      <div style="padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(28px,4vw,52px)">
+        <div>
+          <h3 style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;color:#00ff85;margin:0 0 14px;font-weight:400">// ABOUT THE GAME</h3>
+          <p style="margin:0 0 26px;color:#d2d2e6;font-size:16px;line-height:1.7">{{ selected.about }}</p>
+          <sc-if value="{{ selHasGallery }}" hint-placeholder-val="{{ false }}">
+            <h3 style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;color:#6b6b8f;margin:0 0 14px;font-weight:400">SCREENSHOTS</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <sc-for list="{{ selGallery }}" as="shot" hint-placeholder-count="2">
+                <button onClick="{{ shot.onClick }}" aria-label="View screenshot" style="padding:0;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;cursor:zoom-in;background:#0d0d20;aspect-ratio:16/10" style-hover="border-color:rgba(0,255,133,.5)">
+                  <img src="{{ shot.src }}" alt="{{ shot.alt }}" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ selHasLinks }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
+              <sc-for list="{{ selLinks }}" as="lnk" hint-placeholder-count="1">
+                <a href="{{ lnk.href }}" target="_blank" rel="noopener noreferrer" style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:#0d0d20;background:#00ff85;padding:12px 22px;border-radius:999px">{{ lnk.label }}</a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.09);padding-left:clamp(20px,3vw,32px)">
+          <div style="margin-bottom:24px">
+            <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#6b6b8f;margin-bottom:8px">YEAR</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px">{{ selected.year }}</div>
+          </div>
+          <div style="margin-bottom:24px">
+            <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#6b6b8f;margin-bottom:8px">STATUS</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;line-height:1.4">{{ selected.status }}</div>
+          </div>
+          <div style="margin-bottom:24px">
+            <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#6b6b8f;margin-bottom:8px">TEAM</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;line-height:1.4">{{ selected.team }}</div>
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#6b6b8f;margin-bottom:12px">MY ROLE</div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ selRole }}" as="r" hint-placeholder-count="3">
+                <li style="font-family:'Space Mono',monospace;font-size:12px;color:#cfcfe6;border:1px solid rgba(0,255,133,.3);padding:6px 11px;border-radius:7px;background:rgba(0,255,133,.05)">{{ r }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ hasLightbox }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="Screenshot viewer" onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:32px;background:rgba(4,4,12,.93);backdrop-filter:blur(8px);cursor:zoom-out;animation:fadeUp .2s both">
+    <img src="{{ lightbox }}" alt="Enlarged screenshot" style="max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.7)">
+    <button onClick="{{ closeLightbox }}" aria-label="Close screenshot" style="position:fixed;top:22px;right:22px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(13,13,32,.6);color:#fff;font-size:19px;cursor:pointer">✕</button>
+  </div>
+</sc-if>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script>
+// ════════════════════════════════════════════════════════════════
+//  GAME DATA  —  add / remove / reorder entries freely.
+//  Each entry:
+//    id      unique slug — also becomes the shareable URL (#play/<id>)
+//    title   game name
+//    genre   short genre label (shown as the card tag)
+//    year    release / build year
+//    status  short status line (e.g. "Released", "In development")
+//    context "Game Jam" | "Course Project" | "Internship"
+//            | "Personal" | "Showcase"   (drives the filter chips)
+//    team    one line about the team / scope
+//    role    array of your roles on the project
+//    blurb   one-line hook shown on the card
+//    about   full paragraph for the detail view
+//    cover   hero image path  (assets/...)
+//    video   OPTIONAL hero video path — if set, the detail view plays
+//            a video instead of the cover image. Leave "" for none.
+//    gallery array of extra screenshot paths (assets/...)
+//    links   array of { label, href } external buttons
+// ════════════════════════════════════════════════════════════════
+const GAMES = [
+  {
+    id:"reboot", title:"Reboot", genre:"2D Platformer", year:"2023",
+    status:"Game Jam · Skytale", context:"Game Jam",
+    team:"Skytale game jam · team of 6",
+    role:["Programmer","Level Design","Producer / PO"],
+    blurb:"Observation-driven platforming wrapped in narrative storytelling.",
+    about:"Reboot is a 2D platformer combining observation and narrative storytelling. It was created during a game jam organized by the video game studio association Skytale. Six people worked on it — I was a programmer, level designer, and producer / product owner for the project.",
+    cover:"assets/reboot-cover.png", video:"",
+    gallery:["assets/reboot-1.png","assets/reboot-2.png"], links:[]
+  },
+  {
+    id:"takeitordie", title:"Take It Or Die", genre:"Fighting Game", year:"2023",
+    status:"Graded A+ · TB honors", context:"Course Project",
+    team:"Solo · final course project",
+    role:["Gameplay Programmer","Combat & Hitboxes"],
+    blurb:"A Footsies-inspired fighter built to master hitbox & hurtbox collisions.",
+    about:"A simple fighting game inspired by Footsies, made as the final project of my Unity training course. It fused my love of fighting games with my programming skills. Mastering collisions with hitboxes and hurtboxes took a lot of time — the project earned a TB mention (grade A+ with honors).",
+    cover:"assets/takeitordie-cover.png", video:"assets/takeitordie.mp4",
+    gallery:["assets/takeitordie-1.png","assets/takeitordie-2.png"],
+    links:[{label:"itch.io ↗",href:"#"}]
+  },
+  {
+    id:"dieofboredom", title:"Die Of Boredom", genre:"Puzzle / Stealth", year:"2023",
+    status:"Game Jam build", context:"Game Jam",
+    team:"Team of 3 programmers",
+    role:["AI Programmer","Animation","QA"],
+    blurb:"Sneak for gears, tinker the clock, make the bell ring faster.",
+    about:"A puzzle/stealth game where you sneak around to collect gears so you can tinker with the clock and make the bell ring faster. Made during a game jam by a team of 3 programmers — I was in charge of the teacher's AI, the animations and QA.",
+    cover:"assets/dieofboredom-cover.png", video:"assets/dieofboredom.mp4",
+    gallery:["assets/dieofboredom-1.png","assets/dieofboredom-2.png"],
+    links:[{label:"itch.io ↗",href:"#"}]
+  },
+  {
+    id:"dsaventure", title:"DSA Venture", genre:"Mobile Runner", year:"2024",
+    status:"In development · Play Store soon", context:"Personal",
+    team:"Solo project",
+    role:["Solo Developer","Game Feel / Juice"],
+    blurb:"A juice-heavy endless runner built to keep players hooked.",
+    about:"A mobile game I'm currently working on. It's a traditional runner but with a big emphasis on juice, in order to keep the player really invested in the gameplay. The game will have a Play Store release soon.",
+    cover:"assets/dsaventure-cover.png", video:"assets/dsaventure.mp4", portrait:true,
+    gallery:[], links:[{label:"Play Store — soon",href:"#"}]
+  },
+  {
+    id:"incubattle", title:"Incubattle", genre:"Beat 'em Up", year:"2022",
+    status:"Course Project · 2 weeks", context:"Course Project",
+    team:"Team of 3 · 2 weeks",
+    role:["UI Implementation","Enemy AI","Level Design","Animation"],
+    blurb:"A retro 2D beat 'em up remake — my first real Unity project.",
+    about:"A retro-style 2D beat 'em up. This was the first actual project I worked on during my Unity course. We had 2 weeks as a team of 3 programmers to remake this existing game. I was in charge of the UI implementation, the collectibles, level design, the enemy AI and animations.",
+    cover:"assets/incubattle-cover.png", video:"assets/incubattle.mp4",
+    gallery:["assets/incubattle-1.png","assets/incubattle-2.png"], links:[]
+  },
+  {
+    id:"taijin", title:"Taijin Kyofusho", genre:"Horror / Narrative", year:"2023",
+    status:"Game Jam build", context:"Game Jam",
+    team:"Game jam team",
+    role:["Programmer","Mechanic Design"],
+    blurb:"A horror experience about the fear of offending others.",
+    about:"A horror interactive experience based on Taijin kyofusho — a Japanese culture-specific syndrome describing an interpersonal fear of offending others. I tried to communicate that anxiety through the game's mechanics. Made during a game jam.",
+    cover:"assets/taijin-cover.png", video:"assets/taijin.mp4",
+    gallery:["assets/taijin-1.png","assets/taijin-2.png"],
+    links:[{label:"itch.io ↗",href:"#"}]
+  },
+  {
+    id:"pelerins", title:"Les Pélerins de l'Atlantide", genre:"Point & Click", year:"2024",
+    status:"Upcoming · PC / Mobile", context:"Internship",
+    team:"Team of 3 developers",
+    role:["IAP Integration","Build & Version Compatibility"],
+    blurb:"An upcoming PC/mobile point & click shipped during my internship.",
+    about:"An upcoming PC/mobile point-and-click game I worked on during my internship. I joined a team of two other developers and was in charge of implementing IAPs and making sure of compatibility across the different versions.",
+    cover:"assets/pelerins-cover.png", video:"",
+    gallery:[], links:[]
+  },
+  {
+    id:"moai", title:"Moai Treasure Hunter", genre:"Arcade Action", year:"2023",
+    status:"48h Game Jam", context:"Game Jam",
+    team:"Solo · 48 hours",
+    role:["Solo Developer"],
+    blurb:"Whack-a-mole — but you're a moai crushing treasure chests.",
+    about:"An arcade-ish action game I made alone, in the span of 48h for a game jam. It is inspired by whack-a-mole — except in this game you control a moai statue trying to crush treasure chests.",
+    cover:"assets/moai-cover.png", video:"assets/moai.mp4",
+    gallery:["assets/moai-1.png","assets/moai-2.png"],
+    links:[{label:"itch.io ↗",href:"#"}]
+  },
+  {
+    id:"ar", title:"Augmented Reality Apps", genre:"AR · Showcase", year:"2024",
+    status:"Ongoing self-study", context:"Showcase",
+    team:"Solo",
+    role:["AR Developer"],
+    blurb:"Self-taught AR apps and a full AR game in progress.",
+    about:"I learned to create AR applications and games autonomously by following various videos. My goal is to master this technology, as I am currently working on a complete AR game that I am developing on my own. I am confident that I can create a great AR experience with my skills.",
+    cover:"assets/ar-cover.png", video:"assets/ar.mp4",
+    gallery:[], links:[]
+  },
+  {
+    id:"course", title:"Course Projects", genre:"Showcase", year:"2022",
+    status:"Collection of prototypes", context:"Showcase",
+    team:"Solo & teams",
+    role:["Generalist"],
+    blurb:"A dozen prototypes across genres from my Unity training.",
+    about:"A dozen prototypes and games of a variety of genres made during my Unity training — whether mandatory coursework or personal projects built for fun in my free time. Making that many games taught me a lot about game development.",
+    cover:"assets/courseprojects-cover.png", video:"",
+    gallery:[], links:[{label:"Video ↗",href:"#"}]
+  }
+];
+
+// Filter chip order (chips with a zero count are auto-hidden)
+const FILTER_ORDER = ["All","Game Jam","Course Project","Internship","Personal","Showcase"];
+
+const SKILLS = [
+  "Unity","C#","Gameplay Programming","Enemy AI","Game Feel / Juice",
+  "UI Implementation","Level Design","Animation","Hitbox / Hurtbox Combat",
+  "Mobile (Android)","AR Development","IAP Integration","Git","QA"
+];
+
+const EXPERIENCE = [
+  { period:"Training", title:"Unity Developer — Certified Course", detail:"Intensive Unity & C# training. Built Incubattle, Take It Or Die and a dozen genre prototypes. Final project graded A+ with honors." },
+  { period:"Internship", title:"Game Developer — Studio", detail:"Joined a 3-dev team on Les Pélerins de l'Atlantide. Implemented IAPs and ensured cross-version build compatibility." },
+  { period:"Ongoing", title:"Freelance & Personal", detail:"Solo titles including DSA Venture (mobile runner) and a self-taught AR game in development." },
+  { period:"Recurring", title:"Game Jams", detail:"Reboot, Die Of Boredom, Taijin Kyofusho, Moai Treasure Hunter — shipping playable builds under tight deadlines." }
+];
+
+const SECTIONS = [
+  { id:"top", href:"#top", label:"Home" },
+  { id:"work", href:"#work", label:"Work" },
+  { id:"about", href:"#about", label:"About" }
+];
+
+const NAV_BASE = "font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.04em;transition:color .18s;";
+const CHIP_BASE = "display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.03em;padding:9px 16px;border-radius:999px;cursor:pointer;transition:all .18s;";
+
+class Component extends DCLogic {
+  state = {
+    filter: "All",
+    selectedId: null,
+    activeSection: "top",
+    isMobile: false,
+    menuOpen: false,
+    lightbox: null,
+    exporting: false,
+    exportStatus: "",
+    exportMenuOpen: false
+  };
+
+  // ── lifecycle ────────────────────────────────────────────────
+  componentDidMount(){
+    document.documentElement.lang = "en";
+    document.title = "Valentin Luzolo — Unity Developer";
+
+    // responsive breakpoint without media-query CSS
+    this._mq = window.matchMedia("(max-width: 820px)");
+    this._onMq = e => this.setState({ isMobile: e.matches, menuOpen: false });
+    this._mq.addEventListener("change", this._onMq);
+
+    // scroll-spy for the active nav link
+    this._spy = new IntersectionObserver(
+      entries => entries.forEach(en => { if (en.isIntersecting) this.setState({ activeSection: en.target.id }); }),
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    SECTIONS.concat([{ id:"contact" }]).forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el) this._spy.observe(el);
+    });
+
+    this._onKey = this.handleKey.bind(this);
+    window.addEventListener("keydown", this._onKey);
+    this._onPop = () => this.syncFromHash();
+    window.addEventListener("popstate", this._onPop);
+    this._onDocDown = (e) => {
+      if (this.state.exportMenuOpen && !e.target.closest("[data-export]"))
+        this.setState({ exportMenuOpen: false });
+    };
+    document.addEventListener("pointerdown", this._onDocDown);
+
+    // open a project if the page was loaded with a deep link
+    this.setState({ isMobile: this._mq.matches });
+    this.syncFromHash();
+
+    // ambient hero effect
+    this.initFx();
+    // flashy 3D hero emblem (glowing wireframe cube — nods to the boot cube)
+    this.initHero3D();
+  }
+
+  // ── flashy Three.js hero emblem ──────────────────────────────
+  initHero3D(){
+    const canvas = document.getElementById("hero3d");
+    if (!canvas) return;
+    const THREE = window.THREE;
+    if (!THREE){                                   // CDN not ready yet — retry
+      this._h3dTries = (this._h3dTries || 0) + 1;
+      if (this._h3dTries < 50) setTimeout(() => this.initHero3D(), 150);
+      return;
+    }
+    if (this._h3dStop) return;                      // already initialised
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(128, 128, false);
+
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    cam.position.set(0, 0, 4.4);
+
+    const geo = new THREE.BoxGeometry(1.55, 1.55, 1.55);
+    const edges = new THREE.EdgesGeometry(geo);
+
+    // faint solid core
+    const core = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+      color: 0x003a22, transparent:true, opacity:0.4
+    }));
+    scene.add(core);
+    // bright glowing edges (additive so they bloom on the dark bg)
+    const lineMat = new THREE.LineBasicMaterial({
+      color: 0x00ff85, transparent:true, opacity:0.95, blending: THREE.AdditiveBlending
+    });
+    const cube = new THREE.LineSegments(edges, lineMat);
+    scene.add(cube);
+    // soft halo — a larger, dimmer copy
+    const halo = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({
+      color: 0x00ff85, transparent:true, opacity:0.16, blending: THREE.AdditiveBlending
+    }));
+    halo.scale.setScalar(1.4);
+    scene.add(halo);
+
+    // start at a 3D-reading angle so the first frame is never face-on
+    core.rotation.set(0.62, 0.82, 0);
+    cube.rotation.set(0.62, 0.82, 0);
+    halo.rotation.set(0.62, 0.82, 0);
+
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0, t = 0.9, running = true;
+    const render = () => {
+      renderer.render(scene, cam);
+    };
+    const loop = () => {
+      if (!running) return;
+      t += 0.016;
+      const rx = t * 0.55, ry = t * 0.8;
+      core.rotation.set(rx, ry, 0);
+      cube.rotation.set(rx, ry, 0);
+      halo.rotation.set(rx, ry, 0);
+      const pulse = 1 + Math.sin(t * 2.2) * 0.06;
+      cube.scale.setScalar(pulse);
+      lineMat.opacity = 0.7 + Math.sin(t * 3) * 0.25;
+      render();
+      raf = requestAnimationFrame(loop);
+    };
+    if (reduce){ cube.rotation.set(0.6, 0.8, 0); render(); }
+    else loop();
+
+    this._h3dStop = () => {
+      running = false; cancelAnimationFrame(raf);
+      geo.dispose(); edges.dispose(); renderer.dispose();
+    };
+  }
+
+  // ── ambient particle-constellation effect (hero canvas) ──────
+  initFx(){
+    // (a) soft mint spotlight that smoothly trails the pointer across the page
+    const spot = document.getElementById("fx-spot");
+    if (spot){
+      let sx = innerWidth / 2, sy = innerHeight / 2, tx = sx, ty = sy, sraf = 0;
+      const sloop = () => {
+        sx += (tx - sx) * 0.12; sy += (ty - sy) * 0.12;
+        spot.style.transform = "translate3d(" + sx + "px," + sy + "px,0)";
+        sraf = requestAnimationFrame(sloop);
+      };
+      this._onSpot = e => { tx = e.clientX; ty = e.clientY; if (!sraf) sloop(); };
+      sloop();
+      window.addEventListener("pointermove", this._onSpot, { passive: true });
+      this._spotStop = () => { cancelAnimationFrame(sraf); window.removeEventListener("pointermove", this._onSpot); };
+    }
+
+    // (b) interactive particle constellation in the hero
+    const canvas = document.getElementById("fx-hero");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const LINK2 = 13000;   // squared link distance
+    const PULL2 = 16000;   // squared cursor-influence radius
+    let w = 0, h = 0, dpr = 1, dots = [], raf = null, running = true;
+    const mouse = { x: -9999, y: -9999 };
+
+    const make = () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .22,
+      vy: (Math.random() - .5) * .22 - .05,
+      r: Math.random() * 1.6 + .7
+    });
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.max(28, Math.min(92, Math.round((w * h) / 15000)));
+      dots = Array.from({ length: target }, make);
+    };
+    const frame = () => {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      for (const p of dots){
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -12) p.x = w + 12; else if (p.x > w + 12) p.x = -12;
+        if (p.y < -12) p.y = h + 12; else if (p.y > h + 12) p.y = -12;
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+        if (d2 < PULL2){ const d = Math.sqrt(d2) || 1, f = (1 - d2 / PULL2) * .9; p.x += dx / d * f; p.y += dy / d * f; }
+      }
+      for (let i = 0; i < dots.length; i++){
+        for (let j = i + 1; j < dots.length; j++){
+          const a = dots[i], b = dots[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+          if (d2 < LINK2){
+            ctx.strokeStyle = "rgba(0,255,133," + (1 - d2 / LINK2) * .22 + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      for (const p of dots){
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, near = (dx * dx + dy * dy) < PULL2;
+        ctx.beginPath(); ctx.arc(p.x, p.y, near ? p.r + .6 : p.r, 0, 6.2832);
+        ctx.fillStyle = near ? "rgba(0,255,133,.95)" : "rgba(170,200,255,.5)";
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    };
+
+    resize();
+    const onMove = e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; };
+    const onLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+    window.addEventListener("resize", resize);
+
+    if (reduce){
+      frame(); cancelAnimationFrame(raf); raf = null;   // single static frame
+      this._fxStop = () => window.removeEventListener("resize", resize);
+      return;
+    }
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseout", onLeave);
+    // only animate while the hero is on screen
+    let io = null;
+    const hero = document.getElementById("top");
+    if (hero){
+      io = new IntersectionObserver(es => es.forEach(en => {
+        if (en.isIntersecting && !running){ running = true; frame(); }
+        else if (!en.isIntersecting){ running = false; cancelAnimationFrame(raf); }
+      }), { threshold: 0 });
+      io.observe(hero);
+    }
+    frame();
+
+    this._fxStop = () => {
+      running = false; cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseout", onLeave);
+      if (io) io.disconnect();
+    };
+  }
+
+  componentWillUnmount(){
+    if (this._mq) this._mq.removeEventListener("change", this._onMq);
+    if (this._spy) this._spy.disconnect();
+    window.removeEventListener("keydown", this._onKey);
+    window.removeEventListener("popstate", this._onPop);
+    if (this._fxStop) this._fxStop();
+    if (this._spotStop) this._spotStop();
+    if (this._h3dStop) this._h3dStop();
+    if (this._onDocDown) document.removeEventListener("pointerdown", this._onDocDown);
+    document.body.style.overflow = "";
+  }
+
+  // ── filtering ────────────────────────────────────────────────
+  currentList(){
+    const f = this.state.filter;
+    return f === "All" ? GAMES : GAMES.filter(g => g.context === f);
+  }
+
+  // ── hash routing (shareable / back-button friendly) ──────────
+  parseHash(){
+    const m = (location.hash || "").match(/^#play\/(.+)$/);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  syncFromHash(){
+    const id = this.parseHash();
+    const valid = id && GAMES.some(g => g.id === id) ? id : null;
+    this.applySelection(valid);
+  }
+  applySelection(id){
+    this.setState({ selectedId: id, lightbox: null });
+    document.body.style.overflow = id ? "hidden" : "";
+  }
+
+  // ── detail view ──────────────────────────────────────────────
+  openGame(id){
+    if (this.parseHash() !== id) history.pushState(null, "", "#play/" + encodeURIComponent(id));
+    this.applySelection(id);
+  }
+  closeGame(){
+    if (this.parseHash()) history.back();   // restores prior scroll + URL
+    else this.applySelection(null);
+  }
+  navGame(dir){
+    const list = this.currentList();
+    const idx = list.findIndex(g => g.id === this.state.selectedId);
+    if (idx < 0) return;
+    const next = list[(idx + dir + list.length) % list.length];
+    history.replaceState(null, "", "#play/" + encodeURIComponent(next.id));
+    this.applySelection(next.id);
+  }
+
+  // ── keyboard handling ────────────────────────────────────────
+  handleKey(e){
+    if (this.state.lightbox){ if (e.key === "Escape") this.setState({ lightbox: null }); return; }
+    if (this.state.selectedId){
+      if (e.key === "Escape") this.closeGame();
+      else if (e.key === "ArrowLeft") this.navGame(-1);
+      else if (e.key === "ArrowRight") this.navGame(1);
+    } else if (this.state.exportMenuOpen && e.key === "Escape"){
+      this.setState({ exportMenuOpen: false });
+    } else if (this.state.menuOpen && e.key === "Escape"){
+      this.setState({ menuOpen: false });
+    }
+  }
+  cardKey(id, e){
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); this.openGame(id); }
+  }
+
+  // ── portfolio export (self-contained HTML with playable video) ─
+  // Builds a standalone .html brochure from the LIVE GAMES array, inlining
+  // every image + video as a data URL so it works fully offline and videos
+  // play. Because it reads GAMES at click time, it always reflects the
+  // current set of projects — add or remove entries and the export follows.
+  esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+  fetchAsDataURL(url){
+    return fetch(url)
+      .then(r => { if (!r.ok) throw new Error(url + " → " + r.status); return r.blob(); })
+      .then(b => new Promise((res, rej) => {
+        const fr = new FileReader();
+        fr.onload = () => res(fr.result);
+        fr.onerror = rej;
+        fr.readAsDataURL(b);
+      }));
+  }
+  async downloadPortfolio(){
+    if (this.state.exporting) return;
+    this.setState({ exporting: true, exportStatus: "Collecting media…" });
+
+    // unique list of every asset referenced by the current games
+    const assets = new Set();
+    GAMES.forEach(g => {
+      if (g.cover) assets.add(g.cover);
+      if (g.video) assets.add(g.video);
+      (g.gallery || []).forEach(s => assets.add(s));
+    });
+
+    const map = {};
+    let done = 0;
+    const total = assets.size;
+    for (const url of assets){
+      done++;
+      this.setState({ exportStatus: "Embedding media " + done + " / " + total + "…" });
+      try { map[url] = await this.fetchAsDataURL(url); }
+      catch(err){ console.warn("export: could not inline", url, err); map[url] = url; }
+    }
+
+    this.setState({ exportStatus: "Building file…" });
+    const html = this.buildExportHTML(map);
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Valentin-Luzolo-Portfolio.html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+
+    this.setState({ exportStatus: "Downloaded ✓  — open the .html file, videos play inline." });
+    clearTimeout(this._exportTimer);
+    this._exportTimer = setTimeout(() => this.setState({ exporting: false, exportStatus: "" }), 5000);
+  }
+  // PDF path: inline images (videos fall back to their cover), open a
+  // print-styled window and trigger the browser's Save-as-PDF dialog.
+  async exportPDF(){
+    if (this.state.exporting) return;
+    this.setState({ exporting: true, exportStatus: "Preparing PDF…" });
+
+    const assets = new Set();
+    GAMES.forEach(g => {
+      if (g.cover) assets.add(g.cover);
+      (g.gallery || []).forEach(s => assets.add(s));
+    });
+
+    const map = {};
+    let done = 0;
+    const total = assets.size;
+    for (const url of assets){
+      done++;
+      this.setState({ exportStatus: "Embedding media " + done + " / " + total + "…" });
+      try { map[url] = await this.fetchAsDataURL(url); }
+      catch(err){ console.warn("pdf: could not inline", url, err); map[url] = url; }
+    }
+
+    const html = this.buildExportHTML(map, true);
+    const win = window.open("", "_blank");
+    if (!win){
+      this.setState({ exporting: false, exportStatus: "Pop-up blocked — allow pop-ups, then retry PDF." });
+      clearTimeout(this._exportTimer);
+      this._exportTimer = setTimeout(() => this.setState({ exportStatus: "" }), 6000);
+      return;
+    }
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+    const doPrint = () => { try { win.focus(); win.print(); } catch(_){} };
+    win.onload = () => setTimeout(doPrint, 450);
+    setTimeout(() => { if (win && !win.closed && win.document.readyState === "complete") doPrint(); }, 1400);
+
+    this.setState({ exporting: false, exportStatus: "Print dialog opened — choose “Save as PDF”." });
+    clearTimeout(this._exportTimer);
+    this._exportTimer = setTimeout(() => this.setState({ exportStatus: "" }), 7000);
+  }
+  buildExportHTML(map, forPrint = false){
+    const M = u => (u && map[u]) || u || "";
+    const e = s => this.esc(s);
+
+    const games = GAMES.map((g, i) => {
+      const n = String(i + 1).padStart(2, "0");
+      const media = (g.video && !forPrint)
+        ? `<video src="${M(g.video)}"${g.cover ? ` poster="${M(g.cover)}"` : ""} controls playsinline preload="metadata"></video>`
+        : `<img src="${M(g.cover)}" alt="${e(g.title)} — key art">`;
+      const roles = (g.role || []).map(r => `<li>${e(r)}</li>`).join("");
+      const shots = (g.gallery && g.gallery.length)
+        ? `<div class="shots">${g.gallery.map(s => `<img src="${M(s)}" alt="${e(g.title)} screenshot" loading="lazy">`).join("")}</div>`
+        : "";
+      const links = (g.links && g.links.length)
+        ? `<div class="links">${g.links.map(l => `<a href="${e(l.href)}" target="_blank" rel="noopener noreferrer">${e(l.label)}</a>`).join("")}</div>`
+        : "";
+      const portraitCls = (g.portrait && g.video && !forPrint) ? " portrait" : "";
+      return `<section class="game">
+        <div class="media${portraitCls}">${media}<span class="tag">${e(g.genre)}</span><span class="num">${n}</span></div>
+        <div class="body">
+          <h2>${e(g.title)}</h2>
+          <div class="meta"><span>${e(g.year)}</span><span class="dot">/</span><span>${e(g.status)}</span><span class="dot">/</span><span>${e(g.team)}</span></div>
+          <p class="about">${e(g.about)}</p>
+          <div class="roles-wrap"><h3>My role</h3><ul class="roles">${roles}</ul></div>
+          ${shots}
+          ${links}
+        </div>
+      </section>`;
+    }).join("");
+
+    const skills = SKILLS.map(s => `<li>${e(s)}</li>`).join("");
+    const exp = EXPERIENCE.map(x =>
+      `<li><div class="period">${e(x.period)}</div><h4>${e(x.title)}</h4><p>${e(x.detail)}</p></li>`
+    ).join("");
+
+    const jams = GAMES.filter(g => g.context === "Game Jam").length;
+    const built = new Date().toISOString().slice(0, 10);
+
+    return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valentin Luzolo — Unity Developer · Portfolio</title>
+<meta name="description" content="Unity developer portfolio — gameplay, AI and game feel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--mint:#00ff85;--ink:#0d0d20;--indigo:#222152}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:#fff;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  ::selection{background:var(--mint);color:var(--ink)}
+  a{color:var(--mint);text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+  .mono{font-family:'Space Mono',monospace;letter-spacing:.08em}
+  /* cover */
+  .cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:80px 0}
+  .cover::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 40% 40%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 80% 70% at 40% 40%,#000 30%,transparent 75%)}
+  .cover::after{content:"";position:absolute;top:-10%;right:-6%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,133,.16),transparent 62%)}
+  .cover .wrap{position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:11px;color:var(--mint);font-size:13px;margin-bottom:22px}
+  .eyebrow i{width:34px;height:1px;background:var(--mint);display:inline-block}
+  .cover h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(48px,10vw,120px);line-height:.92;letter-spacing:-.02em}
+  .cover .role{font-size:clamp(18px,2.4vw,26px);color:#c5c5de;margin-top:18px;font-weight:500}
+  .cover .pf{margin-top:30px;font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:.42em;color:#6b6b8f;font-size:15px}
+  .stats{display:flex;flex-wrap:wrap;gap:0;margin-top:48px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px}
+  .stats div{padding-right:56px;margin-right:56px;border-right:1px solid rgba(255,255,255,.1)}
+  .stats b{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:40px;display:block}
+  .stats span{font-size:12px;color:#8a8ab0}
+  /* section heading */
+  .lead{padding:clamp(64px,9vw,110px) 0 10px}
+  .lead .eyebrow{margin-bottom:16px}
+  .lead h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,5vw,54px);letter-spacing:-.02em;line-height:1.02}
+  .about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(32px,5vw,72px);padding:34px 0 10px}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+  .about-grid p{color:#c5c5de;margin-bottom:14px}
+  .chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .chips li{font-family:'Space Mono',monospace;font-size:12.5px;color:#cfcfe6;border:1px solid rgba(255,255,255,.13);padding:7px 12px;border-radius:7px}
+  .h-mono{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;color:#6b6b8f;margin-bottom:14px;font-weight:400;text-transform:uppercase}
+  .timeline{list-style:none}
+  .timeline li{position:relative;padding:0 0 26px 26px;border-left:1px solid rgba(255,255,255,.12)}
+  .timeline li::before{content:"";position:absolute;left:-5px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
+  .timeline .period{font-family:'Space Mono',monospace;font-size:11px;color:var(--mint);margin-bottom:6px}
+  .timeline h4{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:5px}
+  .timeline p{color:#9a9abc;font-size:14px}
+  /* games */
+  .games{padding:20px 0 40px;display:flex;flex-direction:column;gap:clamp(40px,6vw,80px)}
+  .game{display:grid;grid-template-columns:1fr;gap:0;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;background:#15152e}
+  .game .media{position:relative;aspect-ratio:16/9;background:#0d0d20}
+  .game .media img,.game .media video{width:100%;height:100%;object-fit:cover;display:block}
+  .game .media.portrait{aspect-ratio:auto;display:flex;align-items:center;justify-content:center;padding:24px 0;background:#0a0a18}
+  .game .media.portrait video{width:auto;height:min(72vh,540px);aspect-ratio:9/16;object-fit:cover;border-radius:24px;border:1px solid rgba(255,255,255,.13);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .game .media .tag{position:absolute;top:15px;left:15px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--ink);background:var(--mint);padding:5px 11px;border-radius:6px}
+  .game .media .num{position:absolute;top:15px;right:17px;font-family:'Space Mono',monospace;font-size:13px;color:#cfcfe6;text-shadow:0 1px 5px #000}
+  .game .body{padding:clamp(24px,4vw,44px)}
+  .game h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(26px,4vw,44px);letter-spacing:-.02em}
+  .game .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Space Mono',monospace;font-size:12px;color:#8a8ab0;margin:14px 0 20px}
+  .game .meta .dot{opacity:.4}
+  .game .about{color:#d2d2e6;font-size:16.5px;max-width:70ch}
+  .roles-wrap{margin-top:24px}
+  .roles-wrap h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:#6b6b8f;font-weight:400;text-transform:uppercase;margin-bottom:10px}
+  .roles{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+  .roles li{font-family:'Space Mono',monospace;font-size:12px;color:#cfcfe6;border:1px solid rgba(0,255,133,.3);background:rgba(0,255,133,.05);padding:6px 11px;border-radius:7px}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+  .shots img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+  .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .links a{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--ink);background:var(--mint);padding:11px 20px;border-radius:999px}
+  /* footer */
+  footer{border-top:1px solid rgba(255,255,255,.08);margin-top:40px;padding:clamp(60px,9vw,110px) 0;text-align:center;position:relative;overflow:hidden}
+  footer::after{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,133,.1),transparent 60%)}
+  footer .wrap{position:relative;z-index:1}
+  footer h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,6vw,64px);letter-spacing:-.02em;margin-bottom:30px}
+  .contact{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .contact a{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 26px;border-radius:999px}
+  .contact a.primary{color:var(--ink);background:var(--mint)}
+  .contact a.ghost{color:#fff;border:1px solid rgba(255,255,255,.2)}
+  .colophon{margin-top:60px;font-family:'Space Mono',monospace;font-size:11.5px;color:#6b6b8f;letter-spacing:.04em}
+</style>
+${forPrint ? `<style>
+  @page{size:A4;margin:12mm}
+  html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cover{min-height:auto;padding:24px 0 34px}
+  .cover::before,.cover::after,footer::after{display:none}
+  .lead{padding:26px 0 6px}
+  .about-grid{padding:20px 0 6px}
+  .games{gap:0}
+  .game{break-inside:avoid;page-break-inside:avoid;margin-bottom:16px}
+  .game,.shots img,.game .media{break-inside:avoid;page-break-inside:avoid}
+  footer{margin-top:20px;padding:34px 0}
+  a{text-decoration:none}
+</style>` : ""}
+</head>
+<body>
+  <header class="cover">
+    <div class="wrap">
+      <div class="eyebrow mono"><i></i> UNITY · C# · GAMEPLAY · XR</div>
+      <h1>Valentin<br>Luzolo</h1>
+      <div class="role">Unity Developer</div>
+      <div class="pf">P O R T F O L I O</div>
+      <div class="stats">
+        <div><b>${GAMES.length}</b><span class="mono">PROJECTS SHIPPED</span></div>
+        <div><b>${jams}</b><span class="mono">GAME JAMS</span></div>
+        <div><b>C#</b><span class="mono">PRIMARY LANGUAGE</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap lead">
+    <div class="eyebrow mono"><i></i> ABOUT ME</div>
+    <h2>I make games feel good to play.</h2>
+  </div>
+  <div class="wrap about-grid">
+    <div>
+      <p>I'm a Unity developer who lives in the gameplay layer — combat collisions, enemy AI, juice and game feel. My work spans fast 48-hour game jams, structured course projects, an internship shipping a commercial point &amp; click, and personal mobile and AR titles.</p>
+      <p>Across every project I tend to wear several hats: programmer first, but often game designer, animator, QA, and even producer. I learn fast and can adapt.</p>
+      <h3 class="h-mono" style="margin-top:28px">Skills &amp; tools</h3>
+      <ul class="chips">${skills}</ul>
+    </div>
+    <div>
+      <h3 class="h-mono">Experience</h3>
+      <ol class="timeline">${exp}</ol>
+    </div>
+  </div>
+
+  <div class="wrap lead">
+    <div class="eyebrow mono"><i></i> SELECTED WORK</div>
+    <h2>Games &amp; Projects</h2>
+  </div>
+  <div class="wrap games">${games}</div>
+
+  <footer>
+    <div class="wrap">
+      <h2>Get in touch.</h2>
+      <div class="contact">
+        <a class="primary" href="mailto:valentin.luzolo@protonmail.com">valentin.luzolo@protonmail.com</a>
+        <a class="ghost" href="tel:+33623589356">+33 6 23 58 93 56</a>
+      </div>
+      <div class="colophon">© ${new Date().getFullYear()} Valentin Luzolo · Unity Developer · Portfolio · exported ${built}</div>
+    </div>
+  </footer>
+</body>
+</html>`;
+  }
+
+  // ── render values ────────────────────────────────────────────
+  renderVals(){
+    const { filter, selectedId, activeSection, isMobile, menuOpen, lightbox } = this.state;
+    const list = this.currentList();
+    const jams = GAMES.filter(g => g.context === "Game Jam").length;
+
+    // nav links with active state
+    const navLinks = SECTIONS.map(s => {
+      const active = activeSection === s.id;
+      return {
+        href: s.href, label: s.label,
+        current: active ? "true" : "false",
+        style: NAV_BASE + "color:" + (active ? "#00ff85" : "#b9b9d6") + ";"
+      };
+    });
+
+    // filter chips with live counts
+    const counts = {};
+    FILTER_ORDER.forEach(f => counts[f] = f === "All" ? GAMES.length : GAMES.filter(g => g.context === f).length);
+    const filters = FILTER_ORDER.filter(f => f === "All" || counts[f] > 0).map(f => {
+      const active = f === filter;
+      return {
+        label: f, count: counts[f], pressed: active ? "true" : "false",
+        onClick: () => this.setState({ filter: f }),
+        style: CHIP_BASE + (active
+          ? "border:1px solid #00ff85;background:#00ff85;color:#0d0d20;font-weight:700;"
+          : "border:1px solid rgba(255,255,255,.14);background:transparent;color:#b9b9d6;"),
+        countStyle: "font-family:'Space Mono',monospace;font-size:11px;opacity:" + (active ? ".7" : ".5") + ";"
+      };
+    });
+
+    // cards
+    const games = list.map((g, i) => ({
+      ...g,
+      num: String(i + 1).padStart(2, "0"),
+      coverAlt: g.title + " — " + g.genre + " cover art",
+      aria: "Open " + g.title + " — " + g.genre,
+      onClick: () => this.openGame(g.id),
+      onKey: (e) => this.cardKey(g.id, e)
+    }));
+
+    // selected detail
+    const selected = GAMES.find(g => g.id === selectedId) || null;
+    const selIdx = selected ? list.findIndex(g => g.id === selected.id) : -1;
+
+    return {
+      // nav / responsive
+      isMobile, isDesktop: !isMobile,
+      menuOpen, menuExpanded: menuOpen ? "true" : "false",
+      navLinks,
+      toggleMenu: () => this.setState({ menuOpen: !menuOpen }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      // hero
+      stats: [
+        { value: GAMES.length + "", label: "PROJECTS SHIPPED" },
+        { value: jams + "", label: "GAME JAMS" },
+        { value: "C#", label: "PRIMARY LANGUAGE" }
+      ],
+      // work
+      filters,
+      games,
+      isEmpty: games.length === 0,
+      resultLabel: "Showing " + games.length + " of " + GAMES.length + " projects"
+        + (filter === "All" ? "" : " · " + filter),
+      // about
+      skills: SKILLS,
+      experience: EXPERIENCE,
+      // back to top
+      showTop: activeSection !== "top",
+      scrollTop: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+      // export
+      exportStatus: this.state.exportStatus,
+      exportMenuOpen: this.state.exportMenuOpen,
+      exportMenuExpanded: this.state.exportMenuOpen ? "true" : "false",
+      toggleExportMenu: () => this.setState({ exportMenuOpen: !this.state.exportMenuOpen }),
+      choosePDF: () => { this.setState({ exportMenuOpen: false }); this.exportPDF(); },
+      chooseHTML: () => { this.setState({ exportMenuOpen: false }); this.downloadPortfolio(); },
+      // detail modal
+      selected,
+      hasSelected: !!selected,
+      selectedIsVideo: !!(selected && selected.video),
+      selectedIsImage: !!(selected && !selected.video),
+      selMediaWrapStyle: (selected && selected.portrait)
+        ? "position:relative;background:#0a0a18;display:flex;align-items:center;justify-content:center;padding:26px 0 76px;overflow:hidden"
+        : "position:relative;aspect-ratio:16/9;background:#0d0d20;overflow:hidden",
+      selVideoStyle: (selected && selected.portrait)
+        ? "height:min(62vh,520px);width:auto;aspect-ratio:9/16;object-fit:cover;border-radius:26px;border:1px solid rgba(255,255,255,.14);box-shadow:0 24px 70px rgba(0,0,0,.55);position:relative;z-index:1"
+        : "width:100%;height:100%;object-fit:cover",
+      selectedCoverAlt: selected ? selected.title + " key art" : "",
+      detailPos: selIdx >= 0 ? String(selIdx + 1).padStart(2, "0") + " / " + String(list.length).padStart(2, "0") : "",
+      selRole: selected ? selected.role : [],
+      selGallery: selected ? selected.gallery.map(src => ({
+        src, alt: selected.title + " screenshot",
+        onClick: () => this.setState({ lightbox: src })
+      })) : [],
+      selLinks: selected ? selected.links : [],
+      selHasGallery: !!(selected && selected.gallery.length),
+      selHasLinks: !!(selected && selected.links.length),
+      closeDetail: () => this.closeGame(),
+      prevGame: () => this.navGame(-1),
+      nextGame: () => this.navGame(1),
+      // lightbox
+      lightbox,
+      hasLightbox: !!lightbox,
+      closeLightbox: () => this.setState({ lightbox: null })
+    };
+  }
+}
+</script>
+</body>
+</html>
