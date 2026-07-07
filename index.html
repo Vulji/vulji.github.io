@@ -162,21 +162,9 @@
       <a href="#work" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#0d0d20;background:#00ff85;padding:14px 26px;border-radius:999px">View the work <span aria-hidden="true">↓</span></a>
       <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#fff;border:1px solid rgba(255,255,255,.2);padding:14px 26px;border-radius:999px">Get in touch</a>
       <div data-export="1" style="position:relative;display:inline-flex">
-        <button onClick="{{ toggleExportMenu }}" aria-haspopup="menu" aria-expanded="{{ exportMenuExpanded }}" aria-label="Download portfolio" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#00ff85;background:rgba(0,255,133,.08);border:1px solid rgba(0,255,133,.4);padding:14px 26px;border-radius:999px;cursor:pointer" style-hover="background:rgba(0,255,133,.16);border-color:#00ff85">
-          <span aria-hidden="true">↓</span> Download portfolio <span aria-hidden="true" style="font-size:12px;opacity:.7">▾</span>
+        <button onClick="{{ choosePDF }}" aria-label="Download portfolio" style="display:inline-flex;align-items:center;gap:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:#00ff85;background:rgba(0,255,133,.08);border:1px solid rgba(0,255,133,.4);padding:14px 26px;border-radius:999px;cursor:pointer" style-hover="background:rgba(0,255,133,.16);border-color:#00ff85">
+          <span aria-hidden="true">↓</span> Download portfolio
         </button>
-        <sc-if value="{{ exportMenuOpen }}" hint-placeholder-val="{{ false }}">
-          <div role="menu" style="position:absolute;top:calc(100% + 10px);left:0;z-index:30;min-width:250px;background:#15152e;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:7px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:4px;animation:fadeUp .16s both">
-            <button role="menuitem" onClick="{{ choosePDF }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:11px 14px;border-radius:9px;background:transparent;border:1px solid transparent;color:#fff;cursor:pointer" style-hover="background:rgba(0,255,133,.1);border-color:rgba(0,255,133,.3)">
-              <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px">PDF</span>
-              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.02em;color:#9a9abc">print-ready · images only</span>
-            </button>
-            <button role="menuitem" onClick="{{ chooseHTML }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:11px 14px;border-radius:9px;background:transparent;border:1px solid transparent;color:#fff;cursor:pointer" style-hover="background:rgba(0,255,133,.1);border-color:rgba(0,255,133,.3)">
-              <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px">HTML <span style="color:#00ff85;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:.02em">▶ videos play</span></span>
-              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.02em;color:#9a9abc">self-contained · works offline</span>
-            </button>
-          </div>
-        </sc-if>
       </div>
     </div>
     <p aria-live="polite" style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.03em;color:#8a8ab0;margin:14px 0 0;min-height:16px">{{ exportStatus }}</p>
@@ -1210,9 +1198,7 @@ ${forPrint ? `<style>
       exportStatus: this.state.exportStatus,
       exportMenuOpen: this.state.exportMenuOpen,
       exportMenuExpanded: this.state.exportMenuOpen ? "true" : "false",
-      toggleExportMenu: () => this.setState({ exportMenuOpen: !this.state.exportMenuOpen }),
-      choosePDF: () => { this.setState({ exportMenuOpen: false }); this.exportPDF(); },
-      chooseHTML: () => { this.setState({ exportMenuOpen: false }); this.downloadPortfolio(); },
+      choosePDF: () => this.exportPDF(),
       // detail modal
       selected: selected ? { ...selected, cover: this.res(selected.cover), video: this.res(selected.video) } : null,
       hasSelected: !!selected,
