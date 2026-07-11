@@ -296,7 +296,7 @@
           <img src="{{ selected.cover }}" alt="{{ selectedCoverAlt }}" style="width:100%;height:100%;object-fit:cover">
         </sc-if>
         <sc-if value="{{ selectedIsYoutube }}" hint-placeholder-val="{{ false }}">
-          <iframe src="{{ selYoutube }}" title="{{ selected.title }} — video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; fullscreen; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:0;display:block"></iframe>
+          <iframe src="{{ selYoutube }}" title="{{ selected.title }} — video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; fullscreen; gyroscope; picture-in-picture" allowfullscreen style="{{ selYoutubeStyle }}"></iframe>
         </sc-if>
         <sc-if value="{{ selShowMediaOverlay }}" hint-placeholder-val="{{ true }}">
         <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(19,19,44,1),rgba(19,19,44,0) 50%)"></div>
@@ -397,6 +397,27 @@
 // ════════════════════════════════════════════════════════════════
 const GAMES = [
   {
+    id:"circleout", title:"Circle Out", genre:"Rhythm Arcade", year:"2025",
+    status:"Game Jam · GMTK 2025", context:"Game Jam",
+    team:"3 programmers + 1 music maker",
+    role:["Game Feel","Feedback & Juice","Sound Design"],
+    blurb:"Jump in rhythm to dodge obstacles and climb your way up.",
+    about:"An arcade game where you jump in rhythm to avoid obstacles and unlock your way up. Made in 48 hours for GMTK Game Jam 2025 on the theme \"Loop.\" I was in charge of the feedback, sound, and overall game feel — making every jump land with satisfying weight and timing.",
+    cover:"assets/circleout-cover.jpg", video:"", youtube:"https://www.youtube-nocookie.com/embed/GcHCNVXtuLo?rel=0&autoplay=1&playsinline=1&modestbranding=1",
+    gallery:["assets/circleout-1.jpg"],
+    links:[{label:"Watch on YouTube ↗",href:"https://youtu.be/GcHCNVXtuLo"}]
+  },
+  {
+    id:"wendogo", title:"Wendogo", genre:"Social Deduction", year:"2025",
+    status:"Student Project", context:"Course Project",
+    team:"Team of 10 (game artists, game designers, 2 other programmers)",
+    role:["Multiplayer Programmer","Networked UI","Turn & State Sync"],
+    blurb:"A multiplayer social deduction card game based on the Wendigo myth.",
+    about:"A card game where survivors must identify and defeat the hidden Wendigo. My first project using Unity GameObjects in a networked environment, connecting client-side UI and player actions to the multiplayer system — synchronizing interactions, turns and game states was the main technical challenge.",
+    cover:"assets/wendogo-cover.png", video:"", youtube:"https://www.youtube-nocookie.com/embed/W0d_kBHY_2s?rel=0&autoplay=1&playsinline=1&modestbranding=1", portrait:true,
+    gallery:[], links:[{label:"Watch on YouTube ↗",href:"https://youtube.com/shorts/W0d_kBHY_2s"}]
+  },
+  {
     id:"reboot", title:"Reboot", genre:"2D Platformer", year:"2023",
     status:"Game Jam · Skytale", context:"Game Jam",
     team:"Skytale game jam · team of 6",
@@ -435,8 +456,8 @@ const GAMES = [
     role:["Solo Developer","Game Feel / Juice"],
     blurb:"A juice-heavy endless runner built to keep players hooked.",
     about:"A mobile game I'm currently working on. It's a traditional runner but with a big emphasis on juice, in order to keep the player really invested in the gameplay. The game will have a Play Store release soon.",
-    cover:"assets/dsaventure-cover.png", video:"assets/dsaventure.mp4", portrait:true,
-    gallery:[], links:[{label:"Play Store — soon",href:"#"}]
+    cover:"assets/dsaventure-cover.png", video:"", youtube:"https://www.youtube-nocookie.com/embed/yD_8nO-e1CQ?rel=0&autoplay=1&playsinline=1&modestbranding=1", portrait:true,
+    gallery:[], links:[{label:"Play Store — soon",href:"#"},{label:"Watch on YouTube ↗",href:"https://youtube.com/shorts/yD_8nO-e1CQ"}]
   },
   {
     id:"incubattle", title:"Incubattle", genre:"Beat 'em Up", year:"2022",
@@ -449,22 +470,22 @@ const GAMES = [
     gallery:["assets/incubattle-1.png","assets/incubattle-2.png"], links:[{label:"Watch on YouTube ↗",href:"https://youtu.be/AhXPGGc-p-s"}]
   },
   {
-    id:"taijin", title:"Taijin Kyofusho", genre:"Horror / Narrative", year:"2023",
+    id:"taijin", title:"Taijin Kyofusho", genre:"Horror / Narrative", year:"2026",
     status:"Game Jam build", context:"Game Jam",
-    team:"Game jam team",
+    team:"Solo developer",
     role:["Programmer","Mechanic Design"],
     blurb:"A horror experience about the fear of offending others.",
     about:"A horror interactive experience based on Taijin kyofusho — a Japanese culture-specific syndrome describing an interpersonal fear of offending others. I tried to communicate that anxiety through the game's mechanics. Made during a game jam.",
-    cover:"assets/taijin-cover.png", video:"", youtube:"https://www.youtube-nocookie.com/embed/Eph3JbxLEIg?rel=0&autoplay=1&playsinline=1&modestbranding=1",
+    cover:"assets/taijin-cover.png", video:"", youtube:"https://www.youtube-nocookie.com/embed/5bAvn4p0AtY?rel=0&autoplay=1&playsinline=1&modestbranding=1",
     gallery:["assets/taijin-1.png","assets/taijin-2.png"],
-    links:[{label:"itch.io ↗",href:"https://vulji.itch.io/"},{label:"Watch on YouTube ↗",href:"https://youtu.be/Eph3JbxLEIg"}]
+    links:[{label:"itch.io ↗",href:"https://vulji.itch.io/"},{label:"Watch on YouTube ↗",href:"https://youtu.be/5bAvn4p0AtY"}]
   },
   {
     id:"pelerins", title:"Les Pélerins de l'Atlantide", genre:"Point & Click", year:"2024",
     status:"Upcoming · PC / Mobile", context:"Internship",
     team:"Team of 3 developers",
     role:["IAP Integration","Build & Version Compatibility"],
-    blurb:"An upcoming PC/mobile point & click shipped during my internship.",
+    blurb:"An upcoming PC/mobile point & click I worked on during my internship.",
     about:"An upcoming PC/mobile point-and-click game I worked on during my internship. I joined a team of two other developers and was in charge of implementing IAPs and making sure of compatibility across the different versions.",
     cover:"assets/pelerins-cover.png", video:"",
     gallery:[], links:[]
@@ -501,6 +522,10 @@ const GAMES = [
     gallery:[], links:[{label:"Watch on YouTube ↗",href:"https://youtu.be/Cwni72UfrGo"}]
   }
 ];
+
+// Keep the grid ordered most-recent-first automatically, so newly added
+// games slot into place by their `year` without manual reordering.
+GAMES.sort((a, b) => parseInt(b.year, 10) - parseInt(a.year, 10));
 
 // Filter chip order (chips with a zero count are auto-hidden)
 const FILTER_ORDER = ["All","Game Jam","Course Project","Internship","Personal","Showcase"];
@@ -953,7 +978,7 @@ class Component extends DCLogic {
       const links = (g.links && g.links.length)
         ? `<div class="links">${g.links.map(l => `<a href="${e(l.href)}" target="_blank" rel="noopener noreferrer">${e(l.label)}</a>`).join("")}</div>`
         : "";
-      const portraitCls = (g.portrait && g.video && !forPrint) ? " portrait" : "";
+      const portraitCls = ((g.video || g.youtube) && g.portrait && !forPrint) ? " portrait" : "";
       return `<section class="game">
         <div class="media${portraitCls}">${media}<span class="tag">${e(g.genre)}</span><span class="num">${n}</span></div>
         <div class="body">
@@ -1031,6 +1056,7 @@ class Component extends DCLogic {
   .game .media img,.game .media video,.game .media iframe{width:100%;height:100%;object-fit:cover;display:block}
   .game .media.portrait{aspect-ratio:auto;display:flex;align-items:center;justify-content:center;padding:24px 0;background:#0a0a18}
   .game .media.portrait video{width:auto;height:min(72vh,540px);aspect-ratio:9/16;object-fit:cover;border-radius:24px;border:1px solid rgba(255,255,255,.13);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .game .media.portrait iframe{width:calc(min(72vh,540px) * 9 / 16);height:min(72vh,540px);border:0;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
   .game .media .tag{position:absolute;top:15px;left:15px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--ink);background:var(--mint);padding:5px 11px;border-radius:6px}
   .game .media .num{position:absolute;top:15px;right:17px;font-family:'Space Mono',monospace;font-size:13px;color:#cfcfe6;text-shadow:0 1px 5px #000}
   .game .body{padding:clamp(24px,4vw,44px)}
@@ -1213,6 +1239,9 @@ ${forPrint ? `<style>
       selVideoStyle: (selected && selected.portrait)
         ? "height:min(62vh,520px);width:auto;aspect-ratio:9/16;object-fit:cover;border-radius:26px;border:1px solid rgba(255,255,255,.14);box-shadow:0 24px 70px rgba(0,0,0,.55);position:relative;z-index:1"
         : "width:100%;height:100%;object-fit:cover",
+      selYoutubeStyle: (selected && selected.portrait)
+        ? "height:min(62vh,520px);width:calc(min(62vh,520px) * 9 / 16);border:0;border-radius:26px;box-shadow:0 24px 70px rgba(0,0,0,.55);position:relative;z-index:1;display:block"
+        : "width:100%;height:100%;border:0;display:block",
       selectedCoverAlt: selected ? selected.title + " key art" : "",
       detailPos: selIdx >= 0 ? String(selIdx + 1).padStart(2, "0") + " / " + String(list.length).padStart(2, "0") : "",
       selRole: selected ? selected.role : [],
